@@ -56,13 +56,14 @@ h1{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(52px,8vw,
 .tlink{display:inline-flex;align-items:center;gap:.6em;margin-top:14px;padding-bottom:5px;font-weight:500;background:linear-gradient(currentColor,currentColor) 0 100% / 100% 1px no-repeat}
 .tlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 
-/* grid: a calm masonry, every photo opens large */
-.grid{columns:3;column-gap:var(--gut);padding:0 var(--pad-x)}
+/* grid: every photo the same size (3:4), read row by row; each one opens large */
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gut);padding:0 var(--pad-x)}
 .grid button{
-  display:block;width:100%;margin:0 0 var(--gut);padding:0;border:0;border-radius:var(--r);overflow:hidden;
-  background:var(--beige);cursor:zoom-in;break-inside:avoid;
+  display:block;width:100%;aspect-ratio:3/4;margin:0;padding:0;border:0;border-radius:var(--r);overflow:hidden;
+  background:var(--beige);cursor:zoom-in;
 }
-.grid img{width:100%;height:auto;transition:scale 1.2s var(--ease)}
+.grid img{width:100%;height:100%;object-fit:cover;transition:scale 1.2s var(--ease)}
+.grid button:last-child:nth-child(3n + 1){grid-column:2}   /* a single photo on the last row sits in the middle */
 @media (hover:hover){ .grid button:hover img{scale:1.04} }
 .more{padding:clamp(40px,5vw,72px) var(--pad-x) 0;text-align:center;color:var(--ink-2)}
 
@@ -90,7 +91,9 @@ h1{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(52px,8vw,
 .lb :focus-visible{outline-color:#f4efe7}
 
 @media (max-width:860px){
-  .grid{columns:2}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid button:last-child:nth-child(3n + 1){grid-column:auto}
+  .grid button.is-alone:nth-child(n){grid-column:1 / -1;justify-self:center;width:calc(50% - var(--gut) / 2)}
   /* phone: the header scrolls away and comes back when you scroll up; links live behind a menu button */
   .top{position:sticky;top:0;flex-wrap:nowrap;gap:10px;transition:translate .45s var(--ease)}
   .top.is-up{translate:0 -100%}
@@ -140,14 +143,25 @@ h1{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(52px,8vw,
 
   <!-- Add a photo: one <button> per image, in the order you want them shown -->
   <div class="grid" id="grid">
-    <button type="button" id="g-0421"><img src="assets/g-0421.jpg" alt="French manicure met glitter en een druppel nagelolie" width="1000" height="1500"></button>
-    <button type="button" id="g-0354"><img src="assets/g-0354.jpg" alt="Afgewerkte French manicure op een hand met ring" width="1000" height="1500"></button>
-    <button type="button" id="g-0213"><img src="assets/gift.jpg" alt="Hand met French manicure en glitter houdt een kaartje omhoog" width="2000" height="1333" loading="lazy"></button>
-    <button type="button" id="g-0240"><img src="assets/g-0240.jpg" alt="Penseel brengt gellak aan op een nagel" width="1000" height="1500" loading="lazy"></button>
-    <button type="button" id="g-0400"><img src="assets/g-0400.jpg" alt="Druppel nagelriemolie op een nagel met glitter" width="1000" height="1500" loading="lazy"></button>
-    <button type="button" id="g-0366"><img src="assets/g-0366.jpg" alt="Pipet met nagelriemolie boven een nagel" width="1000" height="1500" loading="lazy"></button>
-    <button type="button" id="g-0360"><img src="assets/g-0360.jpg" alt="Nagel wordt bijgewerkt met een frees" width="1000" height="1500" loading="lazy"></button>
-    <button type="button" id="g-0366b"><img src="assets/g-0366b.jpg" alt="Merle brengt nagelriemolie aan met een pipet" width="1000" height="1500" loading="lazy"></button>
+    <button type="button" id="g-ig06" data-m="0"><img src="assets/ig-06.jpg" alt="Nude nagels met een vleugje glitter, op een rode bloemenprint" width="1000" height="1333"></button>
+    <button type="button" id="g-0421" data-m="1"><img src="assets/g-0421.jpg" alt="French manicure met glitter en een druppel nagelolie" width="1000" height="1500"></button>
+    <button type="button" id="g-ig12" data-m="2"><img src="assets/ig-12.jpg" alt="Ruitjesdessin in blauw, paars en wit op de nagels" width="1000" height="1333"></button>
+    <button type="button" id="g-0360" data-m="4"><img src="assets/g-0360.jpg" alt="Nagel wordt bijgewerkt met een frees" width="1000" height="1500" loading="lazy"></button>
+    <button type="button" id="g-ig02" data-m="3"><img src="assets/ig-02.jpg" alt="Kleurrijke set met nagels in verschillende tinten" width="1000" height="1333" loading="lazy"></button>
+    <button type="button" id="g-0366b" data-m="17"><img src="assets/g-0366b.jpg" alt="Merle brengt nagelriemolie aan met een pipet" width="1000" height="1500" loading="lazy"></button>
+    <button type="button" id="g-ig03" data-m="6"><img src="assets/ig-03.jpg" alt="Groene en witte nagels met een streepjesdessin" width="1000" height="1225" loading="lazy"></button>
+    <button type="button" id="g-ig07" data-m="5"><img src="assets/ig-07.jpg" alt="Bordeauxrode en roze nagels met kralenarmbanden" width="1000" height="1333" loading="lazy"></button>
+    <button type="button" id="g-ig01" data-m="10"><img src="assets/ig-01.jpg" alt="Nailart in zwart, wit en kobaltblauw, met gouden ringen" width="1000" height="1333" loading="lazy"></button>
+    <button type="button" id="g-0354" data-m="7"><img src="assets/g-0354.jpg" alt="Afgewerkte French manicure op een hand met ring" width="1000" height="1500" loading="lazy"></button>
+    <button type="button" id="g-ig11" data-m="9"><img src="assets/ig-11.jpg" alt="Pastelroze en lichtgroene nagels met gouden armbanden" width="1000" height="1333" loading="lazy"></button>
+    <button type="button" id="g-0400" data-m="11"><img src="assets/g-0400.jpg" alt="Druppel nagelriemolie op een nagel met glitter" width="1000" height="1500" loading="lazy"></button>
+    <button type="button" id="g-ig04" data-m="12"><img src="assets/ig-04.jpg" alt="Mix van groen, bordeaux en koeienprint op de nagels" width="1000" height="1333" loading="lazy"></button>
+    <button type="button" id="g-0240" data-m="14"><img src="assets/g-0240.jpg" alt="Penseel brengt gellak aan op een nagel" width="1000" height="1500" loading="lazy"></button>
+    <button type="button" id="g-ig05" data-m="13"><img src="assets/ig-05.jpg" alt="Nagels met stippen, ruitjes en groene accenten" width="1000" height="1333" loading="lazy"></button>
+    <button type="button" id="g-0366" data-m="8"><img src="assets/g-0366.jpg" alt="Pipet met nagelriemolie boven een nagel" width="1000" height="1500" loading="lazy"></button>
+    <button type="button" id="g-ig08" data-m="15"><img src="assets/ig-08.jpg" alt="Nude nagels met zwarte stippen" width="1000" height="1333" loading="lazy"></button>
+    <button type="button" id="g-ig10" data-m="16"><img src="assets/ig-10.jpg" alt="Nagels in bruin en mintgroen met gouden sieraden" width="1000" height="1333" loading="lazy"></button>
+    <button type="button" id="g-ig09" data-m="18"><img src="assets/ig-09.jpg" alt="Koeienprint met geel en groen op de nagels" width="1000" height="1333" loading="lazy"></button>
   </div>
 
   <p class="more">Zin in een nieuwe set? <a class="tlink" href="#" data-dummy>Boek je afspraak <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a></p>
@@ -171,9 +185,23 @@ h1{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(52px,8vw,
 <script>
 (() => {
   const $ = id => document.getElementById(id);
-  const items = [...$('grid').querySelectorAll('button')];
+  const grid = $('grid');
+  const items = [...grid.querySelectorAll('button')];
   const lb = $('lb'), img = $('lbImg'), n = $('lbN');
   let at = 0;
+
+  // phones show two per row, so they get their own order (data-m) to keep the mix of colours
+  const wide = matchMedia('(min-width: 861px)');
+  const arrange = () => {
+    const two = !wide.matches;
+    items.forEach(b => { b.style.order = two ? b.dataset.m : ''; b.classList.remove('is-alone'); });
+    if (two && items.length % 2){                  // an odd last photo sits in the middle
+      const last = items.reduce((m, b) => +b.dataset.m > +m.dataset.m ? b : m);
+      last.classList.add('is-alone');
+    }
+  };
+  arrange();
+  wide.addEventListener('change', arrange);
   const show = i => {
     at = (i + items.length) % items.length;
     const src = items[at].querySelector('img');
