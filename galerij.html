@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Galerij · Nail Studio by Merle</title>
+<meta name="description" content="Foto's van nagels gezet door Nail Studio by Merle in Hardenberg: French manicures, gelpolish, BIAB en powergel.">
+<meta name="theme-color" content="#f6f3ee">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-var-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/libre-caslon-display-latin.woff2" crossorigin>
+<style>
+@font-face{font-family:"Inter";src:url("assets/fonts/inter-var-latin.woff2") format("woff2");font-weight:400 800;font-display:swap}
+@font-face{font-family:"Playfair Display";src:url("assets/fonts/playfair-display-var-latin.woff2") format("woff2");font-weight:400 600;font-display:swap}
+@font-face{font-family:"Libre Caslon Display";src:url("assets/fonts/libre-caslon-display-latin.woff2") format("woff2");font-weight:400;font-display:swap}
+
+:root{
+  --base:#f6f3ee; --paper:#e6dfd4; --beige:#d6ccbe;
+  --ink:#1d1d1d; --ink-2:#3d3935; --mute:#5f584f; --line:rgba(29,29,29,.17);
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --logo:"Playfair Display","Times New Roman",serif;
+  --display:"Libre Caslon Display","Big Caslon","Times New Roman",serif;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --pad-x:clamp(20px,5.2vw,84px); --gut:clamp(8px,1.1vw,16px); --r:26px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--base);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+/* header */
+.top{
+  position:relative;z-index:10;
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 28px;
+  padding:16px var(--pad-x);
+  background:var(--base);
+  border-bottom:1px solid rgba(29,29,29,.07);
+}
+.tog{display:none;place-items:center;width:42px;height:42px;padding:0;border:0;border-radius:50%;background:rgba(29,29,29,.07);color:inherit;cursor:pointer}
+.tog span{display:block;width:16px;height:1.5px;background:currentColor;box-shadow:0 5px 0 currentColor;translate:0 -2.5px}
+.logo{font-size:22px;letter-spacing:-.045em;white-space:nowrap}
+.logo i{font-family:var(--logo);font-style:normal;font-weight:400;letter-spacing:-.03em}
+.logo b{font-weight:800}
+.links{display:flex;gap:26px;font-size:14.5px}
+.links a{position:relative;padding:4px 0}
+.links a[aria-current="page"]::after,.links a:hover::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor}
+.cta{display:inline-flex;align-items:center;height:42px;padding:0 20px;border-radius:999px;background:var(--ink);color:#fff;font-size:14px;font-weight:550;white-space:nowrap;transition:background .3s}
+.cta:hover{background:#000}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+/* intro */
+.intro{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px 48px;padding:clamp(56px,7vw,112px) var(--pad-x) clamp(32px,4vw,60px)}
+h1{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(52px,8vw,128px);line-height:1;letter-spacing:-.02em}
+.intro p{max-width:30em;margin:0;font-size:clamp(16px,1.25vw,18px);color:var(--ink-2)}
+.tlink{display:inline-flex;align-items:center;gap:.6em;margin-top:14px;padding-bottom:5px;font-weight:500;background:linear-gradient(currentColor,currentColor) 0 100% / 100% 1px no-repeat}
+.tlink svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+/* grid: a calm masonry, every photo opens large */
+.grid{columns:3;column-gap:var(--gut);padding:0 var(--pad-x)}
+.grid button{
+  display:block;width:100%;margin:0 0 var(--gut);padding:0;border:0;border-radius:var(--r);overflow:hidden;
+  background:var(--beige);cursor:zoom-in;break-inside:avoid;
+}
+.grid img{width:100%;height:auto;transition:scale 1.2s var(--ease)}
+@media (hover:hover){ .grid button:hover img{scale:1.04} }
+.more{padding:clamp(40px,5vw,72px) var(--pad-x) 0;text-align:center;color:var(--ink-2)}
+
+/* footer */
+.foot{
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 28px;
+  margin-top:clamp(64px,8vw,120px);padding:28px var(--pad-x) 32px;background:var(--paper);
+  font-size:14px;color:var(--mute);
+}
+.foot a:hover{color:var(--ink)}
+
+/* lightbox */
+.lb{width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:rgba(20,18,16,.94);color:#f4efe7}
+.lb::backdrop{background:transparent}
+.lb[open]{display:grid;grid-template-rows:1fr auto;place-items:center}
+.lb img{max-width:min(92vw,1100px);max-height:calc(100dvh - 120px);width:auto;height:auto;border-radius:14px;object-fit:contain}
+.lb__bar{display:flex;align-items:center;gap:10px;padding:16px 0 22px}
+.lb button{
+  display:grid;place-items:center;width:46px;height:46px;padding:0;border:0;border-radius:50%;
+  background:rgba(244,239,231,.12);color:inherit;cursor:pointer;transition:background .3s;
+}
+.lb button:hover{background:rgba(244,239,231,.24)}
+.lb button svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.lb__n{min-width:64px;text-align:center;font-size:14px;font-variant-numeric:tabular-nums;color:rgba(244,239,231,.75)}
+.lb :focus-visible{outline-color:#f4efe7}
+
+@media (max-width:860px){
+  .grid{columns:2}
+  /* phone: the header scrolls away and comes back when you scroll up; links live behind a menu button */
+  .top{position:sticky;top:0;flex-wrap:nowrap;gap:10px;transition:translate .45s var(--ease)}
+  .top.is-up{translate:0 -100%}
+  .logo{margin-right:auto}
+  .tog{display:grid}
+  .links{
+    position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;padding:8px 20px 14px;
+    background:var(--base);border-bottom:1px solid rgba(29,29,29,.07);
+    opacity:0;visibility:hidden;translate:0 -8px;transition:opacity .3s,translate .4s var(--ease),visibility .3s;
+  }
+  .top.is-menu .links{opacity:1;visibility:visible;translate:0 0}
+  .links a{padding:13px 0;font-size:16px}
+  .links a[aria-current="page"]::after,.links a:hover::after{display:none}
+  .links a[aria-current="page"]{font-weight:600}
+}
+@media (max-width:720px){
+  :root{--r:18px}
+  .top{padding:12px 20px}
+  .cta{height:38px;padding:0 16px;font-size:13px}
+  .foot{flex-direction:column}
+}
+@media (prefers-reduced-motion:reduce){ .grid img{transition:none} }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a class="logo" href="index.html" aria-label="Nail Studio by Merle, naar de homepage"><i>nail</i><b>studio.</b></a>
+  <nav class="links" id="links" aria-label="Hoofdmenu">
+    <a href="index.html">Home</a>
+    <a href="index.html#behandelingen">Behandelingen</a>
+    <a href="galerij.html" aria-current="page">Galerij</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+  <a class="cta" href="https://nails-by-merle.salonized.com/" target="_blank" rel="noopener">Boek je afspraak</a>
+  <button class="tog" id="tog" type="button" aria-expanded="false" aria-controls="links" aria-label="Menu openen"><span></span></button>
+</header>
+
+<main>
+  <div class="intro">
+    <h1>Galerij</h1>
+    <div>
+      <p>Een greep uit mijn werk. Klik op een foto om hem groot te bekijken.</p>
+      <a class="tlink" href="https://www.instagram.com/nailstudio.bymerle" target="_blank" rel="noopener">Meer op Instagram <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
+    </div>
+  </div>
+
+  <!-- Add a photo: one <button> per image, in the order you want them shown -->
+  <div class="grid" id="grid">
+    <button type="button" id="g-0421"><img src="assets/g-0421.jpg" alt="French manicure met glitter en een druppel nagelolie" width="1000" height="1500"></button>
+    <button type="button" id="g-0354"><img src="assets/g-0354.jpg" alt="Afgewerkte French manicure op een hand met ring" width="1000" height="1500"></button>
+    <button type="button" id="g-0213"><img src="assets/gift.jpg" alt="Hand met French manicure en glitter houdt een kaartje omhoog" width="2000" height="1333" loading="lazy"></button>
+    <button type="button" id="g-0240"><img src="assets/g-0240.jpg" alt="Penseel brengt gellak aan op een nagel" width="1000" height="1500" loading="lazy"></button>
+    <button type="button" id="g-0400"><img src="assets/g-0400.jpg" alt="Druppel nagelriemolie op een nagel met glitter" width="1000" height="1500" loading="lazy"></button>
+    <button type="button" id="g-0366"><img src="assets/g-0366.jpg" alt="Pipet met nagelriemolie boven een nagel" width="1000" height="1500" loading="lazy"></button>
+    <button type="button" id="g-0360"><img src="assets/g-0360.jpg" alt="Nagel wordt bijgewerkt met een frees" width="1000" height="1500" loading="lazy"></button>
+    <button type="button" id="g-0366b"><img src="assets/g-0366b.jpg" alt="Merle brengt nagelriemolie aan met een pipet" width="1000" height="1500" loading="lazy"></button>
+  </div>
+
+  <p class="more">Zin in een nieuwe set? <a class="tlink" href="https://nails-by-merle.salonized.com/" target="_blank" rel="noopener">Boek je afspraak <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a></p>
+</main>
+
+<footer class="foot">
+  <span>© <span id="yr">2026</span> NailStudio by Merle · Vechtstraat 2E, Hardenberg</span>
+  <a href="index.html">Terug naar de homepage</a>
+</footer>
+
+<dialog class="lb" id="lb" aria-label="Foto groot bekijken">
+  <img id="lbImg" src="" alt="">
+  <div class="lb__bar">
+    <button type="button" id="lbPrev" aria-label="Vorige foto"><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5"/></svg></button>
+    <span class="lb__n" id="lbN" aria-live="polite"></span>
+    <button type="button" id="lbNext" aria-label="Volgende foto"><svg viewBox="0 0 16 16"><path d="m6 3 5 5-5 5"/></svg></button>
+    <button type="button" id="lbClose" aria-label="Sluiten"><svg viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
+  </div>
+</dialog>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const items = [...$('grid').querySelectorAll('button')];
+  const lb = $('lb'), img = $('lbImg'), n = $('lbN');
+  let at = 0;
+  const show = i => {
+    at = (i + items.length) % items.length;
+    const src = items[at].querySelector('img');
+    img.src = src.currentSrc || src.src; img.alt = src.alt;
+    n.textContent = (at + 1) + ' / ' + items.length;
+  };
+  const open = i => { show(i); if (typeof lb.showModal === 'function') lb.showModal(); else lb.setAttribute('open', ''); };
+  items.forEach((b, i) => b.addEventListener('click', () => open(i)));
+  $('lbPrev').addEventListener('click', () => show(at - 1));
+  $('lbNext').addEventListener('click', () => show(at + 1));
+  $('lbClose').addEventListener('click', () => lb.close());
+  lb.addEventListener('click', e => { if (e.target === lb) lb.close(); });
+  lb.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft') show(at - 1);
+    if (e.key === 'ArrowRight') show(at + 1);
+  });
+  // a link from the homepage (galerij.html#g-0400) opens that photo straight away
+  const fromHash = () => {
+    const hit = location.hash ? items.findIndex(b => '#' + b.id === location.hash) : -1;
+    if (hit > -1) open(hit);
+  };
+  if (document.readyState === 'complete') fromHash(); else addEventListener('load', fromHash);
+  addEventListener('hashchange', fromHash);
+  // phone header: menu button, and the bar returns when you scroll up
+  const top = document.querySelector('.top'), tog = $('tog');
+  const setMenu = open => {
+    top.classList.toggle('is-menu', open);
+    tog.setAttribute('aria-expanded', String(open));
+    tog.setAttribute('aria-label', open ? 'Menu sluiten' : 'Menu openen');
+  };
+  tog.addEventListener('click', () => setMenu(!top.classList.contains('is-menu')));
+  addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+  let lastY = scrollY;
+  addEventListener('scroll', () => {
+    const y = scrollY;
+    if (Math.abs(y - lastY) < 4) return;
+    const hide = y > lastY && y > top.offsetHeight && !top.classList.contains('is-menu');
+    top.classList.toggle('is-up', hide);
+    lastY = y;
+  }, { passive: true });
+
+  $('yr').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
