@@ -240,7 +240,7 @@ body{position:relative}
   --base:#f6f3ee;       /* warm white the page settles on */
   --mute:#5f584f;
   --line:rgba(29,29,29,.17);
-  --accent:#e7e1d6;     /* the accent colour (chosen by the client) */
+  --accent:#ece7df;     /* the accent colour (chosen by the client, a touch lighter) */
   --cream:#f4efe7;
   --r:26px;
   --gut:clamp(8px,1.1vw,16px);
@@ -449,6 +449,7 @@ html.is-open,html.is-open body{background:var(--paper)}
 .end__info a{background:linear-gradient(currentColor,currentColor) 0 100% / 0 1px no-repeat;transition:background-size .5s var(--ease)}
 .end__info a:hover{background-size:100% 1px}
 .end__info ul{display:grid}
+.end__nav,.end__info .lbl{display:none}
 .hours{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 24px;font-variant-numeric:tabular-nums}
 .hours > *{color:var(--ink-2)}
 .hours .is-today{color:var(--ink);font-weight:550}
@@ -503,13 +504,18 @@ html.is-open,html.is-open body{background:var(--paper)}
   .gift__bg::after{content:"";position:absolute;left:0;right:0;bottom:0;height:58%;background:linear-gradient(rgba(21,19,18,0),rgba(21,19,18,.55) 45%,#151312);pointer-events:none}
   .gift__in{margin-top:-36px;padding:0 22px 34px}
   .end{padding-block:52px 22px}
-  .end__info{grid-template-columns:minmax(0,1fr);gap:26px}
-  .hours{gap:0 18px;font-size:14.5px}
-  .end__main,.end__info{text-align:center}
-  .end__brand{justify-items:center}
-  .end__info{justify-items:center}
-  .hours{justify-content:center;text-align:left}
-  .end__bot{flex-direction:column;align-items:center;text-align:center}
+  .end__main{gap:44px}
+  .end__brand{gap:26px}
+  .end__logo{width:200px}
+  .end__info{grid-template-columns:minmax(0,1fr);gap:40px;font-size:16.5px;line-height:1.5}
+  .end__info h3{margin-bottom:16px;font-size:12px}
+  .end__nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+  .end__nav ul{gap:12px}
+  .end__info ul{gap:16px}
+  .end__info .lbl{display:block;margin-bottom:2px;font-size:13px;color:var(--mute)}
+  .end__info a{overflow-wrap:anywhere}
+  .hours{gap:6px 20px;font-size:16px}
+  .end__bot{flex-direction:column;align-items:flex-start;gap:10px;margin-top:44px;font-size:14px}
 }
 
 @media (prefers-reduced-motion:reduce){
@@ -754,6 +760,23 @@ html.is-open,html.is-open body{background:var(--paper)}
         </div>
 
         <div class="end__info" data-rv>
+          <div class="end__nav">
+            <section aria-labelledby="menu-t">
+              <h3 id="menu-t">Menu</h3>
+              <ul>
+                <li><a href="#over">Over Merle</a></li>
+                <li><a href="#behandelingen">Behandelingen</a></li>
+                <li><a href="galerij.html">Galerij</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+              </ul>
+            </section>
+            <section aria-labelledby="follow-t">
+              <h3 id="follow-t">Volg</h3>
+              <ul>
+                <li><a href="https://www.instagram.com/nailstudio.bymerle" target="_blank" rel="noopener">Instagram</a></li>
+              </ul>
+            </section>
+          </div>
           <section aria-labelledby="addr-t">
             <h3 id="addr-t">Adres</h3>
             <p><a href="https://www.google.com/maps/search/?api=1&amp;query=Vechtstraat+2E%2C+7772+AX+Hardenberg" target="_blank" rel="noopener">Vechtstraat 2E<br>Vechtpark<br>7772 AX Hardenberg</a></p>
@@ -761,9 +784,9 @@ html.is-open,html.is-open body{background:var(--paper)}
           <section aria-labelledby="contact-t">
             <h3 id="contact-t">Contact</h3>
             <ul>
-              <li><a href="tel:+31626154539">06 26 15 45 39</a></li>
-              <li><a href="mailto:mvnailsbeautyx@gmail.com">mvnailsbeautyx@gmail.com</a></li>
-              <li><a href="https://www.instagram.com/nailstudio.bymerle" target="_blank" rel="noopener">@nailstudio.bymerle</a></li>
+              <li><span class="lbl">Telefoon</span><a href="tel:+31626154539">06 26 15 45 39</a></li>
+              <li><span class="lbl">E-mail</span><a href="mailto:mvnailsbeautyx@gmail.com">mvnailsbeautyx@gmail.com</a></li>
+              <li><span class="lbl">Instagram</span><a href="https://www.instagram.com/nailstudio.bymerle" target="_blank" rel="noopener">@nailstudio.bymerle</a></li>
             </ul>
           </section>
           <section class="end__hours" aria-labelledby="hours-t">
@@ -1203,14 +1226,14 @@ html.is-open,html.is-open body{background:var(--paper)}
     tog.setAttribute('aria-expanded', 'false');
     tog.setAttribute('aria-label', 'Menu openen');
   };
-  // floating nav: phone only; it comes back when you scroll up and hides again when you scroll down
+  // phone header: shown at the top, hides when you scroll down, returns as soon as you scroll up
   const phone = matchMedia('(max-width: 860px)');
   let lastY = scrollY;
   const onScroll = () => {
     const y = scrollY, past = y > 80;
     let on = dock.classList.contains('is-on');
     if (!phone.matches){ on = false; closeMenu(); }
-    else if (!past) on = false;
+    else if (!past) on = true;
     else if (y < lastY - 4) on = true;
     else if (y > lastY + 4 && !dock.classList.contains('is-menu')) on = false;
     if (Math.abs(y - lastY) > 4) lastY = y;
