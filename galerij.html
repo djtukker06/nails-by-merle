@@ -125,7 +125,7 @@ h1{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(52px,8vw,
     <a href="galerij.html" aria-current="page">Galerij</a>
     <a href="index.html#contact">Contact</a>
   </nav>
-  <a class="cta" href="https://nails-by-merle.salonized.com/" target="_blank" rel="noopener">Boek je afspraak</a>
+  <a class="cta" href="#" data-dummy>Boek je afspraak</a>
   <button class="tog" id="tog" type="button" aria-expanded="false" aria-controls="links" aria-label="Menu openen"><span></span></button>
 </header>
 
@@ -134,7 +134,7 @@ h1{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(52px,8vw,
     <h1>Galerij</h1>
     <div>
       <p>Een greep uit mijn werk. Klik op een foto om hem groot te bekijken.</p>
-      <a class="tlink" href="https://www.instagram.com/nailstudio.bymerle" target="_blank" rel="noopener">Meer op Instagram <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
+      <a class="tlink" href="#" data-dummy>Meer op Instagram <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
     </div>
   </div>
 
@@ -150,7 +150,7 @@ h1{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(52px,8vw,
     <button type="button" id="g-0366b"><img src="assets/g-0366b.jpg" alt="Merle brengt nagelriemolie aan met een pipet" width="1000" height="1500" loading="lazy"></button>
   </div>
 
-  <p class="more">Zin in een nieuwe set? <a class="tlink" href="https://nails-by-merle.salonized.com/" target="_blank" rel="noopener">Boek je afspraak <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a></p>
+  <p class="more">Zin in een nieuwe set? <a class="tlink" href="#" data-dummy>Boek je afspraak <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a></p>
 </main>
 
 <footer class="foot">
@@ -218,5 +218,7 @@ h1{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(52px,8vw,
   $('yr').textContent = new Date().getFullYear();
 })();
 </script>
+
+<script>/* demo: buttons and links to outside sites are placeholders for now */document.addEventListener('click',function(e){var a=e.target.closest('[data-dummy]');if(a)e.preventDefault();});</script>
 </body>
 </html>

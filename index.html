@@ -249,6 +249,10 @@ body{position:relative}
 }
 html{scroll-behavior:smooth}
 html.is-open,html.is-open body{background:var(--paper)}
+@media (max-width:720px){
+  html,body{background:var(--paper)}   /* phone: beige before and during the reveal, same as the header */
+  .stage{height:var(--stage-h,calc(var(--lvh) * 100))}   /* locked in px by script, so nothing below moves */
+}
 
 .page{position:relative;z-index:1;color:var(--ink);font-size:16px;line-height:1.6}
 .page img{display:block;max-width:100%}
@@ -304,6 +308,7 @@ html.is-open,html.is-open body{background:var(--paper)}
     translate:0 -100%;transition:translate .5s cubic-bezier(.2,.7,.2,1);
   }
   .dock.is-on,.dock.is-menu{translate:0 0}
+  html:not(.hero-in) .dock{translate:0 -100%}   /* hidden until the hero's text and background come in */
   .dock__logo{display:block;position:relative;z-index:1}
   .dock__logo img{display:block;width:118px;height:auto}
   .dock__tog{
@@ -537,6 +542,7 @@ html.is-open,html.is-open body{background:var(--paper)}
 </div>
 
 <div class="stage" id="stage">
+<script>/* phone: fix the hero to the tallest screen height straight away */(function(){if(!matchMedia("(max-width: 720px)").matches)return;var s=document.getElementById("stage");var h=Math.max(window.innerHeight,document.documentElement.clientHeight,s.getBoundingClientRect().height);document.documentElement.style.setProperty("--stage-h",Math.round(h)+"px");})();</script>
 
 
 <header class="nav" id="nav">
@@ -550,7 +556,7 @@ html.is-open,html.is-open body{background:var(--paper)}
   </nav>
   <nav class="nav__r" aria-label="Social media">
     <ul>
-      <li><a href="https://www.instagram.com/nailstudio.bymerle" target="_blank" rel="noopener">Instagram</a></li>
+      <li><a href="#" data-dummy>Instagram</a></li>
       <li><a href="#reviews">Reviews</a></li>
     </ul>
   </nav>
@@ -571,7 +577,7 @@ html.is-open,html.is-open body{background:var(--paper)}
   <p>Een mooie set begint met aandacht. Bij Nail Studio by Merle krijg je nagels met oog voor detail: van een strakke French manicure tot een vleugje glitter, gezet met rust en precisie.</p>
   <div class="foot__row">
     <span class="rule" id="rule"></span>
-    <a class="btn" id="cta" href="https://nails-by-merle.salonized.com/" target="_blank" rel="noopener">Boek je afspraak
+    <a class="btn" id="cta" href="#" data-dummy>Boek je afspraak
       <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.500 8h11M9 3.500 13.500 8 9 12.500"/></svg>
     </a>
   </div>
@@ -591,8 +597,8 @@ html.is-open,html.is-open body{background:var(--paper)}
       <li style="--k:4"><a href="#contact">Contact</a></li>
     </ul>
     <div class="dock__foot" style="--k:5">
-      <a class="pbtn" href="https://nails-by-merle.salonized.com/" target="_blank" rel="noopener">Boek je afspraak <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
-      <p><a href="tel:+31626154539">06 26 15 45 39</a> · <a href="https://www.instagram.com/nailstudio.bymerle" target="_blank" rel="noopener">Instagram</a></p>
+      <a class="pbtn" href="#" data-dummy>Boek je afspraak <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
+      <p><a href="tel:+31626154539">06 26 15 45 39</a> · <a href="#" data-dummy>Instagram</a></p>
     </div>
   </div>
 </nav>
@@ -678,7 +684,7 @@ html.is-open,html.is-open body{background:var(--paper)}
         </div>
         <div class="pfoot">
           <p>Alle behandelingen boek je direct online.</p>
-          <a class="pbtn" href="https://nails-by-merle.salonized.com/" target="_blank" rel="noopener">Boek je afspraak <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
+          <a class="pbtn" href="#" data-dummy>Boek je afspraak <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
         </div>
       </div>
     </div>
@@ -728,7 +734,7 @@ html.is-open,html.is-open body{background:var(--paper)}
         <li class="quote"><div class="stars" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 256 256"><path d="M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z"/></svg><svg viewBox="0 0 256 256"><path d="M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z"/></svg><svg viewBox="0 0 256 256"><path d="M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z"/></svg><svg viewBox="0 0 256 256"><path d="M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z"/></svg><svg viewBox="0 0 256 256"><path d="M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z"/></svg></div><blockquote><p>“Fijn geholpen... topnagels!!”</p></blockquote><p class="who"><span class="av" aria-hidden="true">J</span><span>Jolanda<small>Review op Salonized</small></span></p></li>
       </ul>
       <div class="rev__foot" data-rv>
-        <a class="tlink" href="https://nails-by-merle.salonized.com/reviews" target="_blank" rel="noopener">Lees alle reviews <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
+        <a class="tlink" href="#" data-dummy>Lees alle reviews <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
         <div class="rev__nav">
           <button type="button" id="revPrev" aria-label="Vorige reviews" aria-controls="revs"><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5"/></svg></button>
           <button type="button" id="revNext" aria-label="Volgende reviews" aria-controls="revs"><svg viewBox="0 0 16 16"><path d="m6 3 5 5-5 5"/></svg></button>
@@ -756,7 +762,7 @@ html.is-open,html.is-open body{background:var(--paper)}
       <div class="end__main">
         <div class="end__brand">
           <img class="end__logo" src="assets/logo-text.png" alt="NailStudio by Merle, since 2023" width="769" height="183" loading="lazy">
-          <a class="pbtn" href="https://nails-by-merle.salonized.com/" target="_blank" rel="noopener" data-rv>Boek je afspraak <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
+          <a class="pbtn" href="#" data-dummy data-rv>Boek je afspraak <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg></a>
         </div>
 
         <div class="end__info" data-rv>
@@ -773,20 +779,20 @@ html.is-open,html.is-open body{background:var(--paper)}
             <section aria-labelledby="follow-t">
               <h3 id="follow-t">Volg</h3>
               <ul>
-                <li><a href="https://www.instagram.com/nailstudio.bymerle" target="_blank" rel="noopener">Instagram</a></li>
+                <li><a href="#" data-dummy>Instagram</a></li>
               </ul>
             </section>
           </div>
           <section aria-labelledby="addr-t">
             <h3 id="addr-t">Adres</h3>
-            <p><a href="https://www.google.com/maps/search/?api=1&amp;query=Vechtstraat+2E%2C+7772+AX+Hardenberg" target="_blank" rel="noopener">Vechtstraat 2E<br>Vechtpark<br>7772 AX Hardenberg</a></p>
+            <p><a href="#" data-dummy>Vechtstraat 2E<br>Vechtpark<br>7772 AX Hardenberg</a></p>
           </section>
           <section aria-labelledby="contact-t">
             <h3 id="contact-t">Contact</h3>
             <ul>
               <li><span class="lbl">Telefoon</span><a href="tel:+31626154539">06 26 15 45 39</a></li>
               <li><span class="lbl">E-mail</span><a href="mailto:mvnailsbeautyx@gmail.com">mvnailsbeautyx@gmail.com</a></li>
-              <li><span class="lbl">Instagram</span><a href="https://www.instagram.com/nailstudio.bymerle" target="_blank" rel="noopener">@nailstudio.bymerle</a></li>
+              <li><span class="lbl">Instagram</span><a href="#" data-dummy>@nailstudio.bymerle</a></li>
             </ul>
           </section>
           <section class="end__hours" aria-labelledby="hours-t">
@@ -804,7 +810,7 @@ html.is-open,html.is-open body{background:var(--paper)}
 
       <div class="end__bot">
         <span>© <span id="yr">2026</span> NailStudio by Merle</span>
-        <span>Website door: <a class="credit" href="https://www.studio-levant.nl" target="_blank" rel="noopener">Studio Levant</a></span>
+        <span>Website door: <a class="credit" href="#" data-dummy>Studio Levant</a></span>
       </div>
     </div>
   </footer>
@@ -1004,9 +1010,11 @@ html.is-open,html.is-open body{background:var(--paper)}
   };
   const wait = ms => new Promise(r => setTimeout(r, ms));
 
+  const heroIn = () => document.documentElement.classList.add('hero-in');   // lets the phone header come in
   async function reveal(){
     const t = ++token;
     started = true; busy = true;
+    setTimeout(heroIn, DUR * .48);          // together with the paper and the words
     try { await run(1); } catch (e) {}
     if (t === token) busy = false;
   }
@@ -1027,6 +1035,7 @@ html.is-open,html.is-open body{background:var(--paper)}
 
   function settle(){           // jump to the final state
     token++;
+    heroIn();
     build();
     anims.forEach(a => a.finish());
     started = true; busy = false;
@@ -1056,7 +1065,8 @@ html.is-open,html.is-open body{background:var(--paper)}
     if (innerWidth === lastW && innerHeight === lastH) return;
     const sameW = innerWidth === lastW;
     lastW = innerWidth; lastH = innerHeight;
-    if (sameW && scrollY > 4) return;        // phone address bar showing or hiding
+    if (sameW && (scrollY > 4 || phoneMq.matches)) return;   // phone address bar showing or hiding
+    if (phoneMq.matches) document.documentElement.style.setProperty('--stage-h', Math.round(Math.max(innerHeight, stageEl.offsetHeight)) + 'px');
     if (started) settle(); else build();
   });
 
@@ -1265,5 +1275,7 @@ html.is-open,html.is-open body{background:var(--paper)}
   $('yr').textContent = new Date().getFullYear();
 })();
 </script>
+
+<script>/* demo: buttons and links to outside sites are placeholders for now */document.addEventListener('click',function(e){var a=e.target.closest('[data-dummy]');if(a)e.preventDefault();});</script>
 </body>
 </html>
