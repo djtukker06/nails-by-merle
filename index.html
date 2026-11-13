@@ -305,10 +305,10 @@ html.is-open,html.is-open body{background:var(--paper)}
     display:flex;align-items:center;justify-content:space-between;gap:16px;
     height:64px;padding:0 14px 0 20px;background:var(--paper);
     box-shadow:0 1px 0 rgba(29,29,29,.08);
-    translate:0 -100%;transition:translate .5s cubic-bezier(.2,.7,.2,1);
+    translate:0 -100%;transition:translate .5s cubic-bezier(.2,.7,.2,1),opacity .8s ease;
   }
   .dock.is-on,.dock.is-menu{translate:0 0}
-  html:not(.hero-in) .dock{translate:0 -100%}   /* hidden until the hero's text and background come in */
+  html:not(.hero-in) .dock{opacity:0;pointer-events:none}   /* first appearance: fades in on the spot with the hero text, no slide */
   .dock__logo{display:block;position:relative;z-index:1}
   .dock__logo img{display:block;width:118px;height:auto}
   .dock__tog{
@@ -392,6 +392,19 @@ html.is-open,html.is-open body{background:var(--paper)}
 .pics img{width:100%;height:100%;object-fit:cover;transition:scale 1.2s var(--ease)}
 @media (hover:hover){ .pics a:hover img{scale:1.05} }
 .pics a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+/* lightbox: a work photo opens large right here, previous / next to browse */
+.lb{width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:rgba(20,18,16,.94);color:#f4efe7}
+.lb::backdrop{background:transparent}
+.lb[open]{display:grid;grid-template-rows:1fr auto;place-items:center}
+.lb img{max-width:min(92vw,1100px);max-height:calc(100dvh - 120px);width:auto;height:auto;border-radius:14px;object-fit:contain}
+.lb__bar{display:flex;align-items:center;gap:10px;padding:16px 0 22px}
+.lb button{display:grid;place-items:center;width:46px;height:46px;padding:0;border:0;border-radius:50%;background:rgba(244,239,231,.12);color:inherit;cursor:pointer;transition:background .3s}
+.lb button:hover{background:rgba(244,239,231,.24)}
+.lb button svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.lb__n{min-width:64px;text-align:center;font-size:14px;font-variant-numeric:tabular-nums;color:rgba(244,239,231,.75)}
+.lb :focus-visible{outline:2px solid #f4efe7;outline-offset:3px}
+.pics a{cursor:zoom-in}
 
 /* ── Reviews: a beige band, the score and three quotes ── */
 .rev__head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px 48px;margin-bottom:clamp(32px,4vw,60px)}
@@ -512,9 +525,11 @@ html.is-open,html.is-open body{background:var(--paper)}
   .end__main{gap:44px}
   .end__brand{gap:26px}
   .end__logo{width:200px}
-  .end__info{grid-template-columns:minmax(0,1fr);gap:40px;font-size:16.5px;line-height:1.5}
+  .end__info{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 20px;font-size:16.5px;line-height:1.5}
+  .end__info > section[aria-labelledby="contact-t"],.end__hours{grid-column:1 / -1}
   .end__info h3{margin-bottom:16px;font-size:12px}
-  .end__nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+  .end__nav{display:block}
+  .end__nav section + section{display:none}   /* Instagram already sits under Contact */
   .end__nav ul{gap:12px}
   .end__info ul{gap:16px}
   .end__info .lbl{display:block;margin-bottom:2px;font-size:13px;color:var(--mute)}
@@ -816,6 +831,41 @@ html.is-open,html.is-open body{background:var(--paper)}
   </footer>
 
 </main>
+
+<dialog class="lb" id="lb" aria-label="Foto groot bekijken">
+  <img id="lbImg" src="" alt="">
+  <div class="lb__bar">
+    <button type="button" id="lbPrev" aria-label="Vorige foto"><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5"/></svg></button>
+    <span class="lb__n" id="lbN" aria-live="polite"></span>
+    <button type="button" id="lbNext" aria-label="Volgende foto"><svg viewBox="0 0 16 16"><path d="m6 3 5 5-5 5"/></svg></button>
+    <button type="button" id="lbClose" aria-label="Sluiten"><svg viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
+  </div>
+</dialog>
+
+<script>
+/* Mijn werk: a photo opens large on this page; arrows (or the arrow keys) go to the next one */
+(() => {
+  const items = [...document.querySelectorAll('.pics a')];
+  const lb = document.getElementById('lb'), img = document.getElementById('lbImg'), n = document.getElementById('lbN');
+  if (!items.length || !lb || typeof lb.showModal !== 'function') return;   // old browsers simply follow the link to the gallery
+  let at = 0;
+  const show = i => {
+    at = (i + items.length) % items.length;
+    const src = items[at].querySelector('img');
+    img.src = src.currentSrc || src.src; img.alt = src.alt;
+    n.textContent = (at + 1) + ' / ' + items.length;
+  };
+  items.forEach((a, i) => a.addEventListener('click', e => { e.preventDefault(); show(i); lb.showModal(); }));
+  document.getElementById('lbPrev').addEventListener('click', () => show(at - 1));
+  document.getElementById('lbNext').addEventListener('click', () => show(at + 1));
+  document.getElementById('lbClose').addEventListener('click', () => lb.close());
+  lb.addEventListener('click', e => { if (e.target === lb) lb.close(); });
+  lb.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft') show(at - 1);
+    if (e.key === 'ArrowRight') show(at + 1);
+  });
+})();
+</script>
 
 <script>
 /* Over Merle: the words light up as you scroll and are all lit by the time the text reaches the
