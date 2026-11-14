@@ -11,6 +11,7 @@
 <link rel="icon" type="image/png" href="assets/logo.png">
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-var-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/playfair-display-var-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/playfair-display-italic-var-latin.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/libre-caslon-display-latin.woff2" crossorigin>
 <link rel="preload" as="image" href="assets/hero.jpg" media="(min-width: 721px)">
 <link rel="preload" as="image" href="assets/hero-portrait.jpg" media="(max-width: 720px)">
@@ -25,6 +26,11 @@
   font-family:"Playfair Display";
   src:url("assets/fonts/playfair-display-var-latin.woff2") format("woff2");
   font-weight:400 600; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"Playfair Display";
+  src:url("assets/fonts/playfair-display-italic-var-latin.woff2") format("woff2");
+  font-weight:400 600; font-style:italic; font-display:swap;
 }
 
 /* ── Tokens — taken from the logo: warm beige disc, near-black wordmark ─ */
@@ -110,7 +116,7 @@ body{position:relative}
 }
 .half{position:relative;display:block;font-size:calc(1em * var(--wk))}
 .half--a{font-family:var(--serif);font-weight:400;letter-spacing:-.04em;padding-right:.03em}
-.half--a .up{position:relative;top:-.052em}
+.half--a .up{position:relative;top:-.052em;font-style:italic}
 .half--b{font-family:var(--sans);font-weight:800;letter-spacing:-.045em}
 
 /* the logo's small print, kept as a lock-up under each half */
